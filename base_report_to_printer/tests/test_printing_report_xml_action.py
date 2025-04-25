@@ -7,6 +7,15 @@ from odoo.tests.common import TransactionCase
 class TestPrintingReportXmlAction(TransactionCase):
     def setUp(self):
         super().setUp()
+
+        self.Demo_user = self.env["res.users"].create(
+            {
+                "name": "Demo2",
+                "login": "demo2",
+                "password": "demo2",
+            }
+        )
+
         self.Model = self.env["printing.report.xml.action"]
 
         self.report = self.env["ir.actions.report"].search([], limit=1)
@@ -14,7 +23,7 @@ class TestPrintingReportXmlAction(TransactionCase):
 
         self.report_vals = {
             "report_id": self.report.id,
-            "user_id": self.env.ref("base.user_demo").id,
+            "user_id": self.Demo_user.id,
             "action": "server",
         }
 
