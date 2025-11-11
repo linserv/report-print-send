@@ -34,7 +34,7 @@ class IrActionsReport(models.Model):
         comodel_name="printing.report.xml.action",
         inverse_name="report_id",
         string="Actions",
-        help="This field allows configuring action and printer on a per " "user basis",
+        help="This field allows configuring action and printer on a per user basis",
     )
 
     @api.onchange("printing_printer_id")
@@ -64,12 +64,16 @@ class IrActionsReport(models.Model):
             serializable_result["action"] = "client"
         return serializable_result
 
+    def _get_user_default_printer(self, user):
+        return user.printing_printer_id
+
     def _get_user_default_print_behaviour(self):
         printer_obj = self.env["printing.printer"]
         user = self.env.user
+        printer = self._get_user_default_printer(user)
         return dict(
             action=user.printing_action or "client",
-            printer=user.printing_printer_id or printer_obj.get_default(),
+            printer=printer or printer_obj.get_default(),
             tray=(
                 str(user.printer_tray_id.system_name) if user.printer_tray_id else False
             ),
