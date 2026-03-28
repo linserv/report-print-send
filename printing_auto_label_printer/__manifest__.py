@@ -2,18 +2,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Printing Auto Base",
+    "name": "Printing Auto Label Printer",
     "author": "BCIM, MT Software, Odoo Community Association (OCA)",
     "maintainers": ["jbaudoux"],
     "category": "Warehouse Management",
     "data": [
-        "security/ir.model.access.csv",
         "views/printing_auto.xml",
     ],
     "depends": [
-        "base_report_to_printer",
+        "base_report_to_label_printer",
+        "printing_auto_base",
     ],
+    "auto_install": True,
     "license": "AGPL-3",
-    "version": "18.0.1.3.1",
+    "version": "18.0.1.0.0",
     "website": "https://github.com/OCA/report-print-send",
 }
